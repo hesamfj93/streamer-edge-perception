@@ -1,0 +1,59 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- IDE / editor ---
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# --- OS / build artifacts ---
+*.log
+*.tmp
+
+# --- Project-specific ---
+# User's local configuration (do not commit; use config.example.ini)
+configs/config.ini
+configs/config.local.ini
+
+# Inference output (annotated MP4s written by run_trt_video.py)
+runs_trt/
+
+# Model artifacts — NEVER commit these. They are large, environment-bound
+# (TensorRT engines tie to a specific JetPack / TRT / GPU triple), and may
+# encode dataset characteristics that should not be public.
+*.engine
+*.onnx
+*.pt
+*.pth
+*.weights
+models/
+weights/
+
+# Datasets and recordings
+data/
+datasets/
+recordings/
+
+# Runtime state created by scripts/start_jetson.sh
+.run/
+
+# --- Generated UI (regen via scripts/regenerate_ui.sh) ---
+# We commit ui_main_window.py so contributors don't need pyside6-uic locally.
+# Uncomment the next line to treat it as build output instead.
+# windows_app/app/ui_main_window.py

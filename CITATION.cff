@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+title: "Streamer Edge Perception: Real-Time Underwater Inference Pipeline on NVIDIA Jetson"
+message: "If you reference this work, please cite it using the metadata below."
+type: software
+authors:
+  - family-names: Faraji
+    given-names: Hesamoddin
+    affiliation: "CIRI ICT, University of Bologna"
+abstract: >-
+  An end-to-end perception pipeline for underwater Mediterranean benthic
+  monitoring, deployed on NVIDIA Jetson Orin NX. A YOLOv8s detector
+  compiled to a TensorRT FP16 engine runs alongside an RTSP video
+  pipeline (GStreamer + MediaMTX) and an MQTT control plane, with a
+  PySide6 operator GUI on a remote laptop connected over a direct
+  Ethernet link. Developed during a Research Fellowship at CIRI ICT,
+  University of Bologna, within the StreamER project.
+keywords:
+  - embedded-ai
+  - edge-computing
+  - computer-vision
+  - object-detection
+  - yolov8
+  - tensorrt
+  - nvidia-jetson
+  - rtsp
+  - mqtt
+  - underwater-imaging
+  - benthic-monitoring
+license: MIT
+repository-code: "https://github.com/<your-username>/streamer-edge-perception"

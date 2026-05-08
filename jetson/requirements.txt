@@ -1,0 +1,11 @@
+# Jetson side — Python 3.8 (matches JetPack 5.x default).
+# These are the minimal, pure-Python deps NOT shipped with JetPack.
+# Heavy native deps (CUDA, TensorRT, PyTorch, OpenCV, PyAV) are installed
+# via JetPack / NVIDIA wheels, NOT via this file.
+
+paho-mqtt>=2.0,<3.0
+
+# ultralytics is required by run_trt_video.py for YOLO/TensorRT loading.
+# Pin to a known-working pre-2.0 line for Python 3.8 compatibility.
+# If you already have a working install, leave it alone.
+ultralytics>=8.0,<8.3

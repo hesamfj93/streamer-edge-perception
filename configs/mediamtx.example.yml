@@ -1,0 +1,33 @@
+# =====================================================================
+# MediaMTX configuration — minimal, RTSP-only, friendly for our setup.
+# =====================================================================
+# Save on the Jetson next to the mediamtx binary as `mediamtx.yml`,
+# or pass an absolute path:  ./mediamtx /path/to/this/file.yml
+#
+# We intentionally keep RTMP/HLS/WebRTC disabled so the listener surface
+# is small and a single port (8554/TCP) is all that needs to be reachable
+# from the laptop over the direct Ethernet link.
+# =====================================================================
+
+# Logging
+logLevel: info
+logDestinations: [stdout]
+
+# RTSP
+rtsp: yes
+rtspAddress: :8554
+# Force TCP — matches the Windows side's OPENCV_FFMPEG_CAPTURE_OPTIONS.
+# UDP works on a clean LAN but mixed Wi-Fi/Ethernet routes have caused
+# silent stalls in this project; TCP is the safe default.
+protocols: [tcp]
+
+# Disable everything else
+rtmp: no
+hls: no
+webrtc: no
+srt: no
+
+# Path config — accept any source name (e.g. /jetson) at publish time.
+paths:
+  all:
+    source: publisher
