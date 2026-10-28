@@ -74,16 +74,37 @@ A short walkthrough showing the live detection footage with the scientific HUD, 
 
 ## Performance
 
-Measured on Jetson Orin NX (16 GB) at Power Mode `MAXN`, JetPack 5.1.2, TensorRT 8.5, on 1080p input.
+Measured on Jetson Orin NX (16 GB) at Power Mode `MAXN`, JetPack 5.1.2,
+TensorRT 8.5. GPU figures from `trtexec` on random input, single stream,
+over a 10 s window after a 200 ms warm-up. End-to-end measured on 9240
+source frames of 1440×1080.
 
-| Metric | Value |
-|---|---|
-| End-to-end throughput | ≈ 29 FPS |
-| Inference latency (FP16) | ≈ 30 ms |
-| Power draw, sustained | ≈ 12 W |
-| Detection mAP@0.5 | 0.894 (held-out evaluation set) |
+| Input | GPU FPS | E2E FPS | GPU latency (mean) | GPU latency (p99) | Engine | mAP@0.5 | mAP@0.5:0.95 |
+|---|---|---|---|---|---|---|---|
+| 640×640 | 133 | 29.0 | 7.5 ms | 8.3 ms | 24.9 MB | 0.765 | 0.516 |
+| 1280×1280 | 37 | 15.3 | 26.7 ms | 30.1 ms | 24.4 MB | 0.766 | 0.571 |
 
-These numbers are stable under sustained load with a 65 W power supply. With a 45 W supply the Jetson begins thermal/over-current throttling within minutes; documented in [`docs/troubleshooting.md`](docs/troubleshooting.md).
+mAP figures are on a held-out test partition, disjoint from training at
+source-frame level, over 519 instances in nine taxa at confidence 0.001
+and NMS IoU 0.7. On the validation split the model reaches mAP@0.5 =
+0.809 under the same configuration. The test partition was separated at
+source-frame level because near-duplicate frames from the same clip
+would otherwise appear on both sides of the split; the lower figure is
+the one reported in the paper and the one to use for comparison.
+
+End-to-end throughput is bound by the CPU-side video path, not by
+inference. On a 2878×2160 source the pipeline falls to about 6 FPS at
+both resolutions while GPU compute time is unchanged.
+
+Board power was not instrumented and no power figure is reported.
+
+The pipeline is stable under sustained load with a 65 W power supply.
+With a 45 W supply the Jetson begins thermal and over-current throttling
+within minutes; documented in [`docs/troubleshooting.md`](docs/troubleshooting.md).
+
+An earlier version of this README reported 0.894 mAP@0.5 and a sustained
+power figure. Both were withdrawn before the camera-ready paper and
+should be disregarded.
 
 ## Setup
 
